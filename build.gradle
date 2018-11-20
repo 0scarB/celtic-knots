@@ -28,10 +28,10 @@ repositories {
 version = '0.1'
 
 jar {
-  manifest {
-    attributes('Implementation-Title': project.name,
-               'Implementation-Version': project.version)
-  }
+    manifest {
+        attributes('Implementation-Title': project.name,
+                   'Implementation-Version': project.version)
+    }
 }
 
 apply plugin: "jacoco"
@@ -53,14 +53,14 @@ tasks.withType(JavaCompile) {
 
 // Custom tasks
 task rebuild {
-  description 'Reruns the build script and overwrites the buildDir.'
+    description 'Reruns the build script and overwrites the buildDir.'
 }
 rebuild.dependsOn(clean)
 rebuild.dependsOn(build)
 rebuild.mustRunAfter(clean)
 
 task rebuildTestCov {
-  description 'Rebuilds, runs tests and then generates code coverage.'
+    description 'Rebuilds, runs tests and then generates code coverage.'
 }
 rebuildTestCov.dependsOn(rebuild)
 rebuildTestCov.dependsOn(jacocoTestReport)
