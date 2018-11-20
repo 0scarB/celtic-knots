@@ -1,8 +1,8 @@
-package pattern;
+package com.oscarbutler.celticknots.pattern;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
-import pattern.exception.NonRectangularGridException;
+import com.oscarbutler.celticknots.pattern.exception.NonRectangularGridException;
 
 public class RectangularKnotTest {
 

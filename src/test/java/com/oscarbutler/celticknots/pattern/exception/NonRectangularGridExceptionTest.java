@@ -1,4 +1,4 @@
-package pattern.exception;
+package com.oscarbutler.celticknots.pattern.exception;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -9,7 +9,7 @@ public class NonRectangularGridExceptionTest {
   public void NonRectangularGridException_CorrectStackTraceString() {
     IllegalArgumentException nonRectangularGridException = new NonRectangularGridException();
     String expectedExeceptionMessage = (
-      "pattern.exception.NonRectangularGridException: "
+      "com.oscarbutler.celticknots.pattern.exception.NonRectangularGridException: "
       + "All rows in the grid must have the same length!"
     );
 

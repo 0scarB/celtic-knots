@@ -1,7 +1,7 @@
-package pattern;
+package com.oscarbutler.celticknots.pattern;
 
 import java.util.Arrays;
-import pattern.exception.NonRectangularGridException;
+import com.oscarbutler.celticknots.pattern.exception.NonRectangularGridException;
 
 public class RectangularKnot {
 

@@ -1,4 +1,4 @@
-package pattern.exception;
+package com.oscarbutler.celticknots.pattern.exception;
 
 public class NonRectangularGridException extends IllegalArgumentException {
   public NonRectangularGridException() {
