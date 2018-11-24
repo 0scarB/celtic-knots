@@ -9,6 +9,10 @@
 plugins {
     // Apply the java-library plugin to add support for Java Library
     id 'java-library'
+    id 'com.jfrog.bintray' version '1.8.4'
+    id 'maven-publish'
+    id 'signing'
+    id 'jacoco'
     id 'com.adarshr.test-logger' version '1.5.0'
 }
 
@@ -27,6 +31,90 @@ repositories {
 
 version = '0.1'
 
+task sourceJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allJava
+}
+
+task javadocJar(type: Jar) {
+    from javadoc
+    classifier = 'javadoc'
+}
+
+artifacts {
+    archives jar
+    archives sourceJar
+    archives javadocJar
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+            artifact(sourceJar) {
+                classifier = 'sources'
+            }
+            artifact(javadocJar) {
+                classifier = 'javadoc'
+            }
+
+            groupId = 'com.oscarbutler'
+            artifactId = 'celticknots'
+            version = project.version
+
+            pom {
+                name = project.name
+                description = 'A library for creating Celtic Knots'
+                licenses {
+                    license {
+                        name = 'GNU GENERAL PUBLIC LICENSE, Version 3'
+                        url = 'https://www.gnu.org/licenses/gpl-3.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'oscarb'
+                        name = 'Oscar Butler-Aldridge'
+                        email = 'oscarb@protonmail.com'
+                        organization = ''
+                        organizationUrl = ''
+                    }
+                }
+                scm {
+                    url = 'https://github.com/0scarB/celtic-knots/'
+                    connection = 'scm:git:git://github.com/0scarB/celtic-knots.git'
+                    developerConnection = 'scm:git:ssh://git@github.com:0scarB/celtic-knots.git'
+                }
+            }
+        }
+    }
+
+    repositories {
+        mavenCentral()
+        maven {
+            credentials {
+                username = project.property('sonatypeUsername')
+                password = project.property('sonatypePassword')
+            }
+            url = 'https://oss.sonatype.org/service/local/staging/deploy/maven2/'
+        //     // url = "$buildDir/repo"
+        }
+    }
+}
+
+bintray {
+    user = project.property('jfrogBintrayUsername')
+    key = project.property('jfrogBintrayAPIKey')
+    pkg {
+        repo = 'com.oscarbutler'
+        name = 'celticknots'
+        userOrg = '0scarb'
+        licenses = ['GPL-3.0']
+        vcsUrl = 'https://github.com/0scarB/celtic-knots'
+    }
+    publications = ['mavenJava']
+}
+
 jar {
     manifest {
         attributes('Implementation-Title': project.name,
@@ -34,7 +122,9 @@ jar {
     }
 }
 
-apply plugin: "jacoco"
+javadoc {
+    options.addBooleanOption('html5', true)
+}
 
 // Code Coverage
 jacocoTestReport {
