@@ -1,21 +1,21 @@
 language: java
 
 env:
-  global:
-    - CODECOV_TOKEN="4ae12839-a8f4-4c74-bfc9-97dd23b4a084"
+    global:
+        - CODECOV_TOKEN="4ae12839-a8f4-4c74-bfc9-97dd23b4a084"
 
 install:
-  - gradle assemble
+    - gradle assemble
 script:
-  - gradle check
-  - gradle jacocoTestReport
+    - gradle check
+    - gradle jacocoTestReport
 before_cache:
-  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
-  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+    - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+    - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
 cache:
-  directories:
-    - $HOME/.gradle/caches/
-    - $HOME/.gradle/wrapper/
+    directories:
+        - $HOME/.gradle/caches/
+        - $HOME/.gradle/wrapper/
 
 after_success:
-  - bash <(curl -s https://codecov.io/bash)
+    - bash <(curl -s https://codecov.io/bash)
