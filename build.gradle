@@ -31,7 +31,7 @@ repositories {
 
 def isCI = System.getenv('TRAVIS') && System.getenv('CI')
 
-version = '0.1'
+version = '0.2'
 
 if (!isCI) {
     task sourceJar(type: Jar) {
